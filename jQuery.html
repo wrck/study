@@ -1,0 +1,803 @@
+<!Doctype html>
+<html>
+<head lang="zn-CN">
+	<meta charset="utf-8">
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<style>
+			.blue{
+				color:blue;
+			}
+			.text-center{
+				text-align:center;
+			}
+			.bg-pink{
+				background:pink;
+			}
+			.bg-violet{
+				background:violet;
+			}
+			.f-size-lg{
+				font-size:18px;
+			}
+			.disable{
+				display:none;
+			}
+			.margin{
+				margin: 10px;
+			}
+			.padding{
+				padding: 10px 40px;
+			}
+			.border{
+				border:1px solid blueviolet;
+			}
+			.search-panel *{
+				border:2px  solid skyblue;
+				margin: 15px;
+				padding:10px;
+				display: block;
+				color:skyblue;
+			}
+			.line-h{
+				line-height:1.3;
+			}
+		</style>
+</head>
+<body>
+	<div id="dome">
+		<h1>jQuery选择器显示/隐藏操作方式</h1>
+		<p>标签选择所有指定标签元素，以p为例</p>
+		<p id="test">该段落设定ID:test</p>
+		<p class="test">该段落设定class:test</p>
+		<button id="b1">隐藏所有段落</button>
+		<button id="b2">隐藏<b>指定id</b>段落</button>
+		<button id="b3">隐藏指定class段落</button>
+		<button id="b4">toggle使段落show和hide进行切换</button>
+		<h4>提示：<br><br>text()设置和返回元素中的文本内容<br><br>html()设置和返回带格式的内容<br><br>val()设置和返回表单字段的值<br><br>show(),hide(),toggle()第一个参数设置切换到速度（slow，fast，normal,毫秒数），第二个参数设置切换完成后执行的函数.对所有影响的元素都有效，即多少个元素切换就执行多少次</h4>
+		<script>
+			$(document).ready(function(){
+				$("#b1").click(function(){
+					if($('#b1').text()=="隐藏所有段落"){
+						$('#dome p').hide();
+						$("#b1").text("显示所有段落");
+					}else{
+						$('#dome p').show();
+						$("#b1").text("隐藏所有段落");
+					}	
+				});
+				$('#b2').click(function(){
+					if($('#b2').html()=="隐藏<b>指定id</b>段落"){
+						$('#dome p#test').hide();
+						$("#b2").html("显示<b>指定id</b>段落");
+					}else{
+						$('#dome p#test').show();
+						$("#b2").html("隐藏<b>指定id</b>段落");
+					}	
+				});
+				$('#b3').click(function(){
+					if($('#b3').text()=="隐藏指定class段落"){
+						$('#dome p.test').hide();
+						$("#b3").text("显示指定class段落");
+					}else{
+						$('#dome p.test').show();
+						$("#b3").text("隐藏指定class段落");
+					}	
+				});
+				$("#b4").click(function(){
+					var count=0;
+					$('#dome p').toggle(1000,function(){
+						alert("执行第"+ ++count +"次callback函数");
+					});	
+				});
+			});
+		</script>
+	</div>
+	<div>
+		<h1>jQuery淡入淡出效果</h1>
+		<button id="b5">所有颜色块淡入/淡出</button>
+		<button id="b6">所有颜色块淡入</button>
+		<button id="b7">所有颜色块淡出</button>
+		<button id="b8">所有颜色块设置不同的透明度</button>
+		<br><br>
+		<div>
+			<div class="fade" id="fade1" style="width:100px;height:100px;background:red;float:left;"></div>
+			<div class="fade" id="fade2" style="width:100px;height:100px;background:blue;float:left;"></div>
+			<div class="fade" id="fade3" style="width:100px;height:100px;background:yellow;float:left;"></div>
+			<div style="clear:both;"></div>
+			<h4>提示：<br><br>fadeIn(speed,callback)<br><br>fadeOut(speed,callback)<br><br>fadeToggle(speed,callback)<br><br>fadeTo(speed,opacity,callback)</h4>
+		</div>	
+		<script>
+			$(document).ready(function(){
+				$('#b5').click(function(){
+					$('div.fade').fadeToggle(1000);
+				});
+				$('#b6').click(function(){
+					$('div.fade').fadeIn(3000);
+				});
+				$('#b7').click(function(){
+					$('div.fade').fadeOut(5000);
+				});
+				$('#b8').click(function(){
+					$('div#fade1').fadeTo(7000,0.9);
+					$('div#fade2').fadeTo(4000,0.5);
+					$('div#fade3').fadeTo(1000,0.1);
+				});
+			});
+		</script>
+	</div>
+	<div>
+		<h1>jQuery效果-滑动</h1>
+		<div id="slide-panel1" style="text-align:center;background:beige;">
+			<p>滑动效果可以使元素上下滑动</p>
+			<p>slideDown(speed,callback)下滑</p>
+			<p>slideUp(speed,callback)上滑</p>
+			<p>slideToggle(speed,callback)上滑和下滑之间切换</p>
+		</div>
+		<button id="slide1">点击这里实现顶部上滑和下滑之间切换</button>
+		<button id="slide2">点击这里实现顶部上滑</button>
+		<button id="slide3">点击这里实现顶部下滑</button>
+		<br>
+		<button id="slide4">点击这里实现底部上滑和下滑之间切换</button>
+		<button id="slide5">点击这里实现底部上滑</button>
+		<button id="slide6">点击这里实现底部下滑</button>
+		<div id="slide-panel2" id="slide1" style="text-align:center;background:pink;">
+			<p>滑动效果可以使元素上下滑动</p>
+			<p>slideDown(speed,callback)下滑</p>
+			<p>slideUp(speed,callback)上滑</p>
+			<p>slideToggle(speed,callback)上滑和下滑之间切换</p>
+		</div>
+		<script>
+			$(document).ready(function(){
+				$('#slide1').click(function(){
+					$('#slide-panel1').slideToggle(1000);
+				});
+				$('#slide2').click(function(){
+					$('#slide-panel1').slideToggle(1000);
+				});
+				$('#slide3').click(function(){
+					$('#slide-panel1').slideToggle(1000);
+				});
+				$('#slide4').click(function(){
+					$('#slide-panel2').slideToggle(1000);
+				});
+				$('#slide5').click(function(){
+					$('#slide-panel2').slideToggle(1000);
+				});
+				$('#slide6').click(function(){
+					$('#slide-panel2').slideToggle(1000);
+				});		
+			});
+		</script>
+	</div>
+	<div style="position:relative;">
+		<h1>jQuery效果-动画</h1>
+		<p>animate({params},speed,callback);</p>
+		<p>params用来写css，几乎支持所有属性，不过部分属性名要做更改，如margin-top，应写为marginTop</p>
+		<p>属性值可用show，hide，toggle这些预定义的值</p>
+		<button class='anim-btn'>开始动画</button>
+		<br><br>
+		<div class="animate1" style="position:relative;width:100px;height:100px;background:pink;"></div>
+		<div id="animate2" style="position:relative;top:-100px;left:500px;width:100px;height:100px;background:#00FFFF;"></div>
+		<script>
+			$(document).ready(function(){
+				$('.anim-btn').click(function(){
+					var anmt=$(".animate1");
+					anmt.animate({
+						left:'+=200px',
+						backgroundColor:'#EE82EE'
+					},'slow');
+					anmt.animate({
+						top:'+=200px',
+						backgroundColor:'#8A2BE2'
+					},'slow');
+					anmt.animate({
+						left:'-=200px',
+						backgroundColor:'#00FFFF'
+					},'slow');
+					anmt.animate({
+						top:'-=200px',
+						backgroundColor:'#FFC0CB'
+					},'slow');
+					anmt=$('#animate2');
+					anmt.animate({
+						top:'+=200px',
+						backgroundColor:'#FFC0CB'
+					},'slow');
+					anmt.animate({
+						left:'-=200px',
+						backgroundColor:'#EE82EE'
+					},'slow');
+					anmt.animate({
+						top:'-=200px',
+						backgroundColor:'#8A2BE2'
+					},'slow');
+					anmt.animate({
+						left:'+=200px',
+						backgroundColor:'#00FFFF'
+					},'slow');
+				});
+			});
+		</script>	
+	</div>
+	<div>
+		<h1>jQuery效果-stop()</h1>
+		<p>可以停止动画，stop(stopAll,gotoEnd)，默认都为false</p>
+		<p>stopALl - false 停止当前动画，动画队列向后执行</p>
+		<p>stopAll - true 停止所有动画</p>
+		<p>gotoEnd - true 立即完成当前动画</p>
+		<button class='anim-btn'>开始动画</button>
+		<button id="stop-f-f">停止当前动画</button>
+		<button id="stop-t-f">停止所有动画</button>
+		<button id="stop-f-t">立即完成当前动画</button>
+		<button id="stop-t-t">立即完成当前动画并停止所有</button>
+		<br><br>
+		<div class="animate1" style="position:relative;width:100px;height:100px;background:pink;"></div>
+		<script>
+			$('document').ready(function(){
+				$('#stop-f-f').click(function(){
+					$('.animate1').stop();
+				});
+				$('#stop-f-t').click(function(){
+					$('.animate1').stop(false,true);
+				});
+				$('#stop-t-f').click(function(){
+					$('.animate1').stop(true,false);
+				});
+				$('#stop-t-t').click(function(){
+					$('.animate1').stop(true,true);
+				});
+	
+			})
+		</script>
+	</div>
+	<div>
+		<h1>jQuery方法链接</h1>
+		<p>jQuery允许方法以长链的形式依次调用链接中的方法，也可折行和缩进链式代码,可以避免浏览器多次查找相同元素</p>
+		<button id='chain-btn'>开始动画</button>
+		<br><br>
+		<div id="chain" style="position:relative;width:100px;height:100px;background:pink;"></div>
+		<script>
+			$(document).ready(function(){
+				$('#chain-btn').click(function(){
+					var anmt=$("#chain");
+					anmt.animate({
+						left:'+=200px',
+						backgroundColor:'#EE82EE'
+					},'slow')
+					.animate({
+						top:'+=200px',
+						backgroundColor:'#8A2BE2'
+					},'slow')
+					.animate({
+						left:'-=200px',
+						backgroundColor:'#00FFFF'
+					},'slow')
+					.animate({
+						top:'-=200px',
+						backgroundColor:'#FFC0CB'
+					},'slow');
+				});
+			});
+		</script>	
+	</div>
+	<div>
+		<h1>jQuery - 获得内容和属性</h1>
+		<p>获得内容 - text()、html() 以及 val()</p>
+		<p>三个简单实用的用于 DOM 操作的 jQuery 方法：</p>
+		<p>text() - 设置或返回所选元素的文本内容</p>
+		<p>html() - 设置或返回所选元素的内容（包括 HTML 标记）</p>
+		<p>val() - 设置或返回表单字段的值</p>
+		<p>attr("属性名",'属性值'）- 无属性值参数则返回该属性值，有属性值参数则设置但不返回值<br>
+			可以设置多个属性值或属性对 
+			attr({
+				"attr1" : "attr1-val",
+				"attr2" : "attr2-val"
+				})
+		</p>
+		<p>text(),html(),val(),attr()设置值时可用回调函数，function(index,oldText) 返回newText</p>
+		<button id="text">text()</button>
+		<button id="html">html()</button>	
+		<button id="val">val()</button>	
+		<button id="attr">attr()</button>	
+		<div id="dome1" style="background:violet; width:180px;height:20px;text-align:center">
+			<b>这是一个测试</b>
+		</div>
+		<br>
+		<input type="text" id="dome1-val" value="这是一个文本框测试" style="width:180px;">
+		<script>
+			$('document').ready(function(){
+				var str="";
+				var count=0;
+				$('#text').click(function(){
+					str=$('#dome1').text().trim();
+					$('#dome1').text(prompt('返回所选元素文本内容，并设置',str));
+				});
+				$('#html').click(function(){
+					str=$('#dome1').html().trim();
+					$('#dome1').html(prompt('返回所选元素内容包括格式，并设置',str));
+				});
+				$('#val').click(function(){
+					str=$('#dome1-val').val();
+					$('#dome1-val').val(prompt('返回文本框文本内容，并设置',str));
+				});
+				$('#attr').click(function(){
+					alert("input[value]:"+$('#dome1-val').attr('value'));
+					$('#dome1-val').attr('value',function(i,oldText){
+						return "value属性被回调函数更改"+ ++count +"次";
+					});
+				});
+			})
+		</script>
+	</div>
+	<div>
+		<h1>jQuery - 添加元素</h1>
+		<p>append() - 在被选元素的结尾插入内容</p>
+		<p>prepend - 在被选元素的开头插入内容</p>
+		<p>before() - 在被选元素的之前插入内容</p>
+		<p>after() - 在被选元素的之后插入内容</p>
+		<label for="append-i">添加的内容</label><input id="append-i" placeholder="添加的内容">
+		<button id="append-b">结尾插入</button>
+		<button id="prepend-b">开头插入</button>
+		<button id="before-b">之前插入</button>
+		<button id="after-b">之后插入</button>
+		<button id="newelem-b">创建新元素</button>
+		<br>
+		before
+		<p id="panel-append" style="background:pink;text-align:center;" >prepend<span style="background: violet;">被选元素</span>append</p>
+		after
+		<div id="panel-newelem"></div>
+		<script>
+			$(document).ready(function(){
+				$('#append-b').click(function(){
+					$('#panel-append').append($("#append-i").val());	
+				});
+				$('#prepend-b').click(function(){
+					$('#panel-append').prepend($("#append-i").val());	
+				});
+				$('#before-b').click(function(){
+					$('#panel-append').before($("#append-i").val());	
+				});
+				$('#after-b').click(function(){
+					$('#panel-append').after($("#append-i").val());	
+				});
+				$('#newelem-b').click(function(){
+					var elem1="<b>以HTML创建新元素</b><br>";
+					var elem2=$("<i></i>").html("通过jQuery创建新元素 $('标签对').html('内容');<br>");
+					var elem3=document.createElement("del").innerHTML="通过DOM创建新元素 document.createElement('元素名').innerHTML='内容'<br>";
+					$('#panel-newelem').after(elem1,elem2,elem3);	
+				});
+			})
+		</script>
+	</div>
+	<div>
+		<h1>jQuery 删除元素</h1>
+		<h4>remove("选择器语法") - 删除被选元素及其子元素<br>empty() - 从被选元素中删除子元素</h4>		
+		<div id="rm-panel" style="width:150px;height:100px;background:pink;">
+			<h4>这是一个标题</h4>
+			<p class="rm rm-p">这是一个特定类段落</p>
+			<p class="rm-p">这是一个普通段落</p>
+		</div>
+		<button id="rm-b-a">remove() 删除单个被选元素及其子元素</button>
+		<button id="rm-b1">remove() - 删除多个被选元素及其子元素</button>
+		<button id="rm-b2">remove('选择器语法') - 删除拥有指定类，id，标签的被选元素</button>
+		<button id="ep-b">empty()</button>
+		<script>
+			$(document).ready(function(){
+				$("#rm-b-a").click(function(){
+					$('#rm-panel').remove();
+				});
+				$('#rm-b1').click(function(){
+					$('.rm-p').remove();
+				});
+				$('#rm-b2').click(function(){
+					$('#rm-panel p').remove(".rm");
+				});
+				$('#ep-b').click(function(){
+					$('#rm-panel').empty();
+				});
+			});
+		</script>
+	</div>
+	<div>
+		<h1>jQuery - 获取并设置CSS类</h1>
+		<div id="css-panel" class="bg-pink text-canter" style="line-height:1;">
+			<h4>addClass() - 向被选元素添加一个或多个类</h4>
+			<p>removeClass() - 从被选元素删除一个或多个类</p>
+			<span>toggleClass() - 对被选元素进行添加/删除类的切换操作</span><br><br>
+			css() - 设置或返回样式属性  单值css('propertyname','value');  多值css({'propertyname':'value',...});<br><br>
+		</div>
+		<button id="css-b-a">添加一个或多个类</button>
+		<button id="css-b-r">删除一个或多个类</button>
+		<button id="css-b-t">添加/删除一个或多个类的切换</button>
+		<button id="css-b-c">设置或返回样式属性</button>
+		<input id="css-rt-rd" type="radio" name="css-rd" value="0">返回样式属性
+		<input id="css-st-rd" type="radio" name="css-rd" value="1">设置样式属性
+		<input id="css-input" type="text">	
+		<script>
+			$(document).ready(function(){
+				$('#css-b-a').click(function(){
+					$('#css-panel').addClass('blue f-size-lg bg-violet');
+				});
+				$('#css-b-r').click(function(){
+					$('#css-panel').removeClass('blue f-size-lg bg-violet');
+				});
+				$('#css-b-t').click(function(){
+					$('#css-panel').toggleClass('blue f-size-lg bg-violet');
+				});
+				$('#css-b-c').click(function(){
+					if($('#css-input').val()==""){
+						alert("请先输入文本框");
+						return;
+					}else{
+						if($('#css-input').attr('placeholder')=="样式属性名")
+							$('#css-panel').append($('#css-panel').css($('#css-input').val()));
+						else{
+							var arry=$('#css-input').val().split(",");
+							$('#css-panel').css(arry[0],arry[1]);
+						}	
+					}
+				});
+				$("[name='css-rd']").click(function(){
+					if($(this).val()==1){
+						$("#css-input").attr('placeholder','单值或多值样式属性');
+					}else{
+						$("#css-input").attr('placeholder','样式属性名');						
+					}
+				});
+			});
+		</script>
+	</div>
+	<div>
+		<h1>jQuery - 尺寸</h1>
+		<ul id="size-ul" class="margin border padding bg-pink">
+			<li>width(像素值),height(像素值) 设置或返回元素的宽、高度</li>
+			<li>innerWidth(),innerHeight() 设置或返回元素的宽、高度，包括内边距</li>
+			<li>outerWidth(true),outerHeight(true) 设置或返回元素的宽、高度。无true，包括内边距和边框；有true，包括内边距、边框、外边距</li>
+		</ul>
+		<div class="bg-violet" id="size-panel"></div>
+		<script>
+			$(document).ready(function(){
+				var ul=$('#size-ul');
+				$(window).resize(function(){
+					$('#size-panel').html('ul的padding:10px 40px；border:1px；margin:10px；<br>'
+						+'ul的width:'+ul.width()+" ，height："+ul.height()+"<br>"
+						+'ul的innerWidth:'+ul.innerWidth()+" ，innerHeight："+ul.innerHeight()+"<br>"
+						+'ul的outerWidth:'+ul.outerWidth()+" ，outerHeight："+ul.outerHeight()+"<br>"
+						+'ul的outerWidth(+margin):'+ul.outerWidth(true)+" ，outerHeight(+margin)："+ul.outerHeight(true)+"<br>");
+				})
+				$('#size-panel').html('ul的padding:10px 40px；border:1px；margin:10px；<br>'
+						+'ul的width:'+ul.width()+" ，height："+ul.height()+"<br>"
+						+'ul的innerWidth:'+ul.innerWidth()+" ，innerHeight："+ul.innerHeight()+"<br>"
+						+'ul的outerWidth:'+ul.outerWidth()+" ，outerHeight："+ul.outerHeight()+"<br>"
+						+'ul的outerWidth(+margin):'+ul.outerWidth(true)+" ，outerHeight(+margin)："+ul.outerHeight(true)+"<br>");
+				
+			})
+		</script>
+	</div>
+	<div>
+		<div id="search-memo">
+			<h1>jQuery - 遍历</h1>
+			<ul class="line-h">
+				<li>parent() 返回被选元素的直接父元素</li>
+				<li>parents() 返回被选元素的所有上级元素</li>
+				<li>parents("指定元素") 返回被选元素所有上级元素中的指定元素</li>
+				<li>parentsUntil("指定元素") 返回被选元素和指定元素间的的所有上级元素</li>
+				<li>children() 返回被选元素的所有直接子元素</li>
+				<li>children("指定元素") 返回被选元素的所有直接子元素中的指定元素</li>
+				<li>find("*") 返回被选元素的所有后代</li>
+				<li>find("指定元素") 返回被选元素的所有后代中的指定元素</li>
+				<li>siblings("指定元素") 返回被选元素的所有同级元素或其中的指定元素</li>
+				<li>next(),prev() 返回被选元素的下一个同级元素</li>
+				<li>nextAll(),prevAll() 返回被选元素的所有后继同级元素</li>
+				<li>nextUntil("指定元素"),prevUntil("指定元素") 返回被选元素和指定元素之间的所有后继同级元素</li>
+			</ul>
+		</div>
+		<div class="search-panel">
+            <div>div
+                <ol>ol
+                    <ul>ul
+                        <h5>h5</h5>
+                        <h6>h6</h6>
+                        <h4>h4</h4>
+                        <h3>h3</h3>
+                        <h4>h4</h4>
+                        <ul class="select">被选元素
+                        <li>li
+                            <p>p</p>  
+                        </li>
+                        <span>span <a>a</a></span>
+                        </ul>
+                        <h4>h4</h4>
+                        <h3>h3</h3>
+                        <h4>h4</h4>
+                        <h5>h5</h5>
+                        <h6>h6</h6>
+                    </ul>   
+                </ol>    
+            </div>
+	   </div>
+       <button class="search-p">parent()</button>
+       <button class="search-ps">parents()</button>
+       <button class="search-ps-1">parents('ol')</button>
+       <button class="search-ps-d">parentsUntil('div')</button>
+       <br>
+       <button class="search-c">children()</button>
+       <button class="search-c-1">children('span')</button>
+       <button class="search-f-a">find('*')</button>
+       <button class="search-f-1">find('a')</button>
+       <br>
+       <button class="search-s">siblings()</button>
+       <button class="search-s-1">siblings('h4')</button>
+       <button class="search-np">next(),prev()</button>
+       <button class="search-np-a">nextAll(),prevAll()</button>
+       <button class="search-np-d">nextUntil(),prevUntil()</button> 
+       
+       <div>
+           <h1>jQuery - 遍历 过滤</h1>
+           <div>
+               <ul class="line-h">
+                   <li>first() 返回被选元素的第一个元素</li>
+                   <li>last() 返回被选元素的最后一个元素</li>
+                   <li>eq(index) 返回被选元素中带有指定索引好的元素，索引从0开始</li>
+                   <li>filter('选择器语法') 返回匹配的元素</li>
+                   <li>not('选择器语法') 返回不匹配的元素</li>
+               </ul>
+           </div>
+           <div class="search-panel">
+              <div id="search-demo">
+                <p></p>
+                <p class="index"></p>
+                <p class="index"></p>
+                <p></p>
+                <p></p>  
+              </div>
+              
+           </div>
+           <button class="search-first">first()</button>
+           <button class="search-last">last()</button>
+           <button class="search-eq">eq(3)</button>
+           <button class="search-filter">filter('.class')</button>
+           <button class="search-not">not('.class')</button>
+           
+       </div>
+       <style>
+           .active{
+               border-color: red;
+           }
+           .select{
+               border-color: blue;
+           }
+       </style>      
+       <script>
+           $(document).ready(function(){
+               var select=$('.select');
+               var panel=$('.search-panel');
+               $('.search-p').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.parent().addClass('active');
+               });
+               $('.search-ps').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.parents().addClass('active');
+               });
+               $('.search-ps-1').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.parents('ol').addClass('active');
+               });
+               $('.search-ps-d').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.parentsUntil('div').addClass('active');
+               });
+               $('.search-c').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.children().addClass('active');
+               });
+               $('.search-c-1').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.children('span').addClass('active');
+               });
+               $('.search-f-a').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.find("*").addClass('active');
+               });
+               $('.search-f-1').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.find('a').addClass('active');
+               });
+               $('.search-s').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.siblings().addClass('active');
+               });
+               $('.search-s-1').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.siblings('h4').addClass('active');
+               });
+               $('.search-np').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.next().addClass('active');
+                   select.prev().addClass('active');
+               });
+               $('.search-np-a').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.nextAll().addClass('active');
+                   select.prevAll().addClass('active');
+               });
+               $('.search-np-d').click(function(){
+                   panel.find("*").removeClass('active');
+                   select.nextUntil('h5').addClass('active');
+                   select.prevUntil('h5').addClass('active');
+               });
+               var demo=$('#search-demo');
+               $('.search-first').click(function(){
+                   demo.find("*").removeClass('active');
+                   demo.children().first().addClass('active');
+               });
+               $('.search-last').click(function(){
+                   demo.find("*").removeClass('active');
+                   demo.children().last().addClass('active');
+               });
+               $('.search-eq').click(function(){
+                   demo.find("*").removeClass('active');
+                   demo.children().eq(3).addClass('active');
+               });
+               $('.search-filter').click(function(){
+                   demo.find("*").removeClass('active');
+                   demo.children().filter('.index').addClass('active');
+               });
+               $('.search-not').click(function(){
+                   demo.find("*").removeClass('active');
+                   demo.children().not('.index').addClass('active');
+               });
+               
+           });
+       </script>
+	</div>	
+    <div>
+        <h1>jQuery - AJAX load() 方法</h1>
+        <ul class="line-h">
+            <li>load(URL,data,callback);</li>
+            <li>URL 需要加载的数据所在文件 可以把选择器加到URL参数中</li>
+            <li>data url中发送附加的查询字符串键/值对集合，load(url, {键:值})</li>
+            <li>callback load()方法完成后执行的函数<br>函数包含三个参数
+                <ol>
+                    <li>responseTxt 包含调用成功时结果内容</li>
+                    <li>statusTXT 包含调用状态，success notmodified error timeout parsererror</li>
+                    <li>xhr 包含XMLHttpRequest对象</li>
+                </ol>
+            </li>
+        </ul> 
+        <div id="load">
+            <p>输入a~z字符</p>
+            <input type="text">
+            建议：<span></span>
+        </div>
+        
+        <button id="AJAX-load">load()</button>
+        <style>
+            span>span{
+                margin-right: 10px;
+                
+            }
+        </style>
+        <script>
+            $(document).ready(function(){
+                $('#AJAX-load').click(function(){
+                    $('#load span').load('index.html',function(responseTxt,statusTxt,xhr){
+                        if(statusTxt=="success")
+                            alert(str+'!');
+                        else
+                            alert('Error: ' +xhr.status+':'+xhr.statusText);
+                    });
+                });
+                $('#load input').keyup(function(){
+                    $('#load span').load('index.html [class^="'+$('#load input').val().toLowerCase()+'"]',function(){
+                        if($('#load span').text()=='')
+                            $('#load span').text('No Suggestion');
+                    });           
+                });
+            });
+        </script>
+    </div>
+    <div>
+        <h1>jQuery - AJAX get() 和 post()</h1>
+        <ul class="line-h">
+            <li>$.get(url,callback) 从指定资源请求数据，在url中数据可见
+                <ol>
+                    <li>GET请求可被缓存</li>
+                    <li>GET请求保留在浏览器历史记录中</li>
+                    <li>GET请求可被收藏为书签</li>
+                    <li>GET请求不应在处理敏感数据时使用</li>
+                    <li>GET请求有长度限制</li>
+                    <li>GET请求只应当用于取回数据</li>
+                </ol>
+            </li>
+            <li>$.post(url,data,callback) 从指定资源提交要被处理的数据，在url中数据不可见，在HTTP消息主体中
+                <ol>
+                    <li>POST请求不会被缓存</li>
+                    <li>POST请求不会保留在浏览器历史记录中</li>
+                    <li>POST请求不能被收藏为书签</li>
+                    <li>POST请求长度没有限制</li>
+                    <li>POST请求可用于发送并取回数据</li>
+                </ol>
+            </li>
+        </ul>
+        <div>
+            姓名：<input id="name" type="text">
+            城市：<input id="city" type="text">
+            <button id="get">GET()</button>
+            <button id="post">POST()</button>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('#get').click(function(){
+                    $.get('post.asp?name=qqq&city=sds',function(data,status){
+                        alert(data+"\n"+status);
+                    });
+                });
+                $('#post').click(function(){
+                    var name=$('#name').val();
+                    var city=$('#city').val();
+                    $.post('post.asp',{name:name,city:city},function(data,status){
+                        alert(data+"\n"+status);
+                    });
+                });
+            });
+        </script>
+    </div>
+    <div>
+        <h1>jQuery - noConflict() 方法</h1>
+        <p>noConflict() 方法会释放会 $ 标识符的控制，这样其他脚本就可以使用它了。</p>
+        <p>$.noConflict(); 释放$标识符的控制,使用全名jQuery代替$</p>
+        <p>var jq=$.noConflict(); 自定义简写,使用自定义简写jq代替$</p>
+    </div>
+    <div>
+        <h1>jQuery - 选择器</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_selectors.asp" frameborder="0" style="width: 55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 事件</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_events.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 效果</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_effects.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 文档操作</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_manipulation.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 属性操作</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_attributes.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - CSS操作</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_css.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - Ajax</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_ajax.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 遍历</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_traversing.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 数据</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_data.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - DOM元素</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_dom_element_methods.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 核心</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_core.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+    <div>
+        <h1>jQuery - 属性</h1>
+        <iframe src="http://www.w3school.com.cn/jquery/jquery_ref_prop.asp" frameborder="0" style="width:55%;height: 600px"></iframe>
+    </div>
+</body>
+</html>
